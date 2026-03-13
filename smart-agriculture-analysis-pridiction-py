@@ -1,0 +1,46 @@
+from flask import Flask, render_template, request
+import pandas as pd
+import joblib
+
+app = Flask(__name__)
+
+# Model load karo
+model = joblib.load("crop_model.pkl")
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+@app.route("/predict", methods=["POST"])
+def predict():
+    crop_id = request.form["crop_id"]
+    soil_type = request.form["soil_type"]
+    seedling = float(request.form["seedling"])
+    moi = float(request.form["moi"])
+    temp = float(request.form["temp"])
+    humidity = float(request.form["humidity"])
+
+    input_data = pd.DataFrame({
+        "Crop id": [crop_id],
+        "Soil type": [soil_type],
+        "Seedling": [seedling],
+        "Moi": [moi],
+        "Temp": [temp],
+        "Humidity": [humidity]
+    })
+
+    input_data = pd.get_dummies(input_data)
+
+    model_columns = model.feature_names_in_
+    for col in model_columns:
+        if col not in input_data.columns:
+            input_data[col] = 0
+
+    input_data = input_data[model_columns]
+
+    prediction = model.predict(input_data)
+
+    return render_template("index.html", prediction_text=f"Result: {prediction[0]}")
+
+if __name__ == "_main_":
+    app.run(debug=True)
