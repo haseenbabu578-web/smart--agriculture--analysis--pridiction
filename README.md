@@ -12,7 +12,7 @@ This project demonstrates how to **deploy a machine learning model using Flask**
 
 * Web interface for entering crop and environmental data
 * Machine learning model integration
-* Automatic feature encoding using `pandas.get_dummies()`
+* Automatic feature encoding using 
 * Real-time prediction output
 * Easy to run locally
 
