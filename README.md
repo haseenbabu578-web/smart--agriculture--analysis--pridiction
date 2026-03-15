@@ -33,8 +33,5 @@ This project demonstrates how to **deploy a machine learning model using Flask**
 * Add more crop parameters for better predictions
 
 
-## Author
-
-Developed as a **machine learning + Flask deployment project** for educational purposes.
-
-If you want, I can also make a **professional GitHub README (with badges, screenshots, and demo section)** which looks **much better for projects and college submissions**.
+## Author.
+by Haseen babu
